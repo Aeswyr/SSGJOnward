@@ -43,33 +43,37 @@ public class Player extends Entity {
 	private void controls() {
 
 		boolean sh = false;
-		int sx = 3, sy = -10;
+		double sx = 1.5, sy = -4;
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SHIFT)))
 			sh = true;
 
-		if (Controller.getKeyPressed('a')) {
-			if (sh)
-				sx *= 2;
+		if (Controller.getKeyPressed('a') || Controller.getKeyPressed('d')) {
+			if (Controller.getKeyPressed('a')) {
+				if (sh)
+					sx *= 2;
 
-			if (vector.Vy() != 0) {
-				vector.adjAccelX(-sx / 4.0);
-			} else {
-				vector.setVelocityX(-sx);
-			}
-		}
-
-		if (Controller.getKeyPressed('d')) {
-			if (sh)
-				sx *= 2;
-
-			if (vector.Vy() != 0) {
-				vector.adjAccelX(sx / 4.0);
-				if (Math.abs(vector.Vx()) > 8 && Utility.getSign(vector.Vx()) == Utility.getSign(vector.Ax())) {
-					vector.setAccelX(0);
+				if (vector.Vy() != 0) {
+					vector.adjAccelX(-sx / 4.0);
+				} else {
+					vector.setVelocityX(-sx);
 				}
-			} else {
-				vector.setVelocityX(sx);
 			}
+
+			if (Controller.getKeyPressed('d')) {
+				if (sh)
+					sx *= 2;
+
+				if (vector.Vy() != 0) {
+					vector.adjAccelX(sx / 4.0);
+					if (Math.abs(vector.Vx()) > 8 && Utility.getSign(vector.Vx()) == Utility.getSign(vector.Ax())) {
+						vector.setAccelX(0);
+					}
+				} else { 
+					vector.setVelocityX(sx);
+				}
+			}
+		} else {
+			vector.setVelocityX(vector.Vx() / 1.25);
 		}
 
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SPACE)) && vector.Vy() == 0) {
