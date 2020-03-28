@@ -3,8 +3,6 @@ package scenes;
 import java.awt.event.KeyEvent;
 
 import Levels.PlatBuilder;
-import core.Assets;
-import entities.Platform;
 import entities.Player;
 import entity.Vector;
 import gfx.DrawGraphics;
@@ -15,7 +13,6 @@ import runtime.Scene;
 public class Game extends Scene {
 
 	Player p = new Player();
-	Platform floor;
 	PlatBuilder platforms;
 
 	int scroll = 0;
@@ -54,7 +51,6 @@ public class Game extends Scene {
 	@Override
 	public void stop() {
 		Handler.getEntityManager().removeEntity(p);
-		Handler.getEntityManager().removeEntity(floor);
 
 	}
 
