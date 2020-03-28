@@ -3,6 +3,7 @@ package entities;
 import java.awt.event.KeyEvent;
 
 import core.Assets;
+import core.Init;
 import entity.Entity;
 import entity.Hitbox;
 import entity.Vector;
@@ -15,6 +16,11 @@ import utility.Utility;
 public class Player extends Entity {
 
 	Sprite activeSprite;
+	
+	int gTime = 180;
+	boolean grapple = false;
+	double progress;
+	Grapple grap;
 
 	public Player() {
 		activeSprite = Assets.getSprite("idle");
@@ -38,6 +44,18 @@ public class Player extends Entity {
 	@Override
 	public void update() {
 		controls();
+		grapple();
+		
+		if (this.y > 640) Handler.startScene(Init.menu);
+		
+		if (grapple) gTime--;
+		
+		if (gTime <= 0) {
+			grapple = false;
+			gTime = 180;
+			Handler.getEntityManager().removeEntity(grap);
+			grap = null;
+		}
 	}
 
 	private void controls() {
@@ -83,6 +101,19 @@ public class Player extends Entity {
 			vector.setVelocityY(sy);
 		}
 
+	}
+	
+	private void grapple() {
+		if (!grapple) {
+			if (Controller.getMousePressed(Controller.MOUSELEFT)) {
+				System.out.println("mans went and did it");
+				grap = new Grapple(this);
+				grapple = true;
+				grap.setX((int) x);
+				grap.setY((int) y);
+				Handler.getEntityManager().addEntity(grap);
+			}
+		}
 	}
 
 }
