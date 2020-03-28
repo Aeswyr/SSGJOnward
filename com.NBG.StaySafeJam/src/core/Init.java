@@ -6,12 +6,18 @@ import scenes.Game;
 import scenes.Menu;
 
 public class Init {
+	
+	
+	public static Scene menu, game;
+	
 	public static void main(String[] args) {
 		Engine.start(1440, 720, "onward", "Onward!");
 		
-		Scene menu = new Menu();
-		Scene game = new Game();
+		Engine.getGraphics().setFont(Assets.getFont("script0"));
 		
-		Handler.startScene(game);
+		menu = new Menu();
+		game = new Game();
+		
+		Handler.startScene(menu);
 	}
 }
