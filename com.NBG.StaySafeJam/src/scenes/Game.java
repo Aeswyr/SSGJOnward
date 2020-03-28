@@ -1,5 +1,6 @@
 package scenes;
 
+import Levels.PlatBuilder;
 import core.Assets;
 import entities.Platform;
 import entities.Player;
@@ -12,14 +13,14 @@ public class Game extends Scene {
 
 	Player p = new Player();
 	Platform floor;
+	PlatBuilder platforms;
 
 	int scroll = 0;
 	
 	@Override
 	public void init(String arg0) {
 		p.setX(32);
-		floor = new Platform(10, Assets.getSprite("brick"));
-		floor.setY(64);
+		platforms = new PlatBuilder();
 		start();
 		
 	}
@@ -32,12 +33,12 @@ public class Game extends Scene {
 	@Override
 	public void update() {
 		Handler.getCamera().center(scroll++, 0);
+		platforms.floorMaker();
 	}
 
 	@Override
 	public void start() {
 		Handler.getEntityManager().addEntity(p);
-		Handler.getEntityManager().addEntity(floor);
 		Vector.setGlobalGravity(-9.8);
 	}
 
