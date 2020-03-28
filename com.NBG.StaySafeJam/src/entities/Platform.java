@@ -35,6 +35,7 @@ public class Platform extends Entity {
 
 	@Override
 	public void update() {
+		if (this.x + length * 16 + 128 < Handler.getCamera().xOffset() ) Handler.getEntityManager().removeEntity(this);
 	}
 
 }
