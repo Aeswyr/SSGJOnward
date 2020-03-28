@@ -73,7 +73,7 @@ public class Player extends Entity {
 				}
 			}
 		} else {
-			vector.setVelocityX(vector.Vx() / 1.25);
+			if (vector.Vy() == 0) vector.setVelocityX(vector.Vx() / 1.25);
 		}
 
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SPACE)) && vector.Vy() == 0) {
