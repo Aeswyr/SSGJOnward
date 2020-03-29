@@ -17,6 +17,7 @@ public class Game extends Scene {
 	Player p = new Player();
 	PlatBuilder platforms;
 	OmniPlatBuilder omniPlatforms;
+	int cameraHeight;
 
 	int scroll;
 
@@ -24,6 +25,7 @@ public class Game extends Scene {
 	public void init(String arg0) {
 		p = new Player();
 		p.setX(32);
+		cameraHeight = 92;
 		platforms = new PlatBuilder();
 		omniPlatforms = new OmniPlatBuilder();
 		start();
@@ -41,10 +43,22 @@ public class Game extends Scene {
 
 	@Override
 	public void update() {
+	    System.out.println(p.getY());
 		if (Core.multiplayer)
 			Support.sortCommands();
+		if(p.getY() < 0) {
+		    System.out.println(p.getY());
+		    //cameraHeight = p.getY() + 25;
+		    if(cameraHeight > p.getY() + 120) {
+		        cameraHeight -= 4;
+		    }
+		} else {
+		    if(cameraHeight < 92) {
+		        cameraHeight += 4;
+		    }
+		}
 		if (scrolling)
-			Handler.getCamera().center(scroll++, 92);
+			Handler.getCamera().center(scroll++, cameraHeight);
 		else if (Controller.getKeyPressed((char) KeyEvent.VK_SPACE))
 			scrolling = true;
 		platforms.floorMaker();

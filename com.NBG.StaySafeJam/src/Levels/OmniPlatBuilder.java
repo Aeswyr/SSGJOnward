@@ -56,7 +56,7 @@ public class OmniPlatBuilder {
     }
     
     private void lBlock() {
-        floorHeight = randFloor.nextInt(3) + 4;
+        floorHeight = randFloor.nextInt(3) + 6;
             
         floorLength = randFloor.nextInt(6) + 4;
         tempBlock = new Block(floorLength, 1, Assets.getSprite("brick"));
@@ -78,7 +78,7 @@ public class OmniPlatBuilder {
     }
     
     private void uBlock() {
-        floorHeight = randFloor.nextInt(3) + 4;
+        floorHeight = randFloor.nextInt(3) + 6;
         
         floorLength = randFloor.nextInt(6) + 4;
         tempBlock = new Block(floorLength, 1, Assets.getSprite("brick"));
