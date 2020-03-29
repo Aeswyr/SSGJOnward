@@ -44,13 +44,13 @@ public class Grapple extends Entity {
 	@Override
 	public void update() {
 		if (vector != null) {
-			vector.setAccelY(-9.8);
+			vector.setAccelY(-10);
 			vector.setVelocityX(xspe);
 			vector.setVelocityY(yspe);
 
 			Entity e = vector.collision();
 
-			if (e != null) {
+			if (e != null && e != source) {
 				if (e instanceof Platform || e instanceof Block) {
 					vector = null;
 

@@ -35,7 +35,7 @@ public class Block extends Entity {
 	public void render(DrawGraphics g) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				tile.render((int) (x + 16 * j - Handler.getCamera().xOffset()), (int) (y - 16 * i - Handler.getCamera().yOffset()),
+				tile.render((int) (x + 16 * j - Handler.getCamera().xOffset()), (int) (y + 16 * i - Handler.getCamera().yOffset()),
 						g);
 			}
 		}

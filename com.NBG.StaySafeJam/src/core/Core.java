@@ -2,6 +2,7 @@ package core;
 
 import java.util.Queue;
 
+import entity.Vector;
 import networking.Client;
 import networking.Processor;
 import networking.Server;
@@ -91,6 +92,9 @@ public class Core {
 
 		Engine.getGraphics().setFont(Assets.getFont("script0"));
 		Engine.updateScale(3, 3);
+		
+		Vector.adjustCollisionProximity(8);
+		
 
 		menu = new Menu();
 		game = new Game();
