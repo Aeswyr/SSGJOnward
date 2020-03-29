@@ -40,7 +40,7 @@ public class PlatBuilder {
             if(floorType <= 3) {
                 gapSize = 0;
             } else {
-                gapSize = randFloor.nextInt(96) + 16;
+                gapSize = randFloor.nextInt(80) + 16;
             }
             
             createSinglePlat();
