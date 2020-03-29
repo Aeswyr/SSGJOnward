@@ -36,7 +36,7 @@ public class OmniPlatBuilder {
     private void omniChunkBuilder() {
         chunkLength = 0;
         
-        for(int i = 0; i < 15; i++) {
+        for(int i = 0; i < 10; i++) {
             
             floorLength = randFloor.nextInt(6) + 4;
             floorType = randFloor.nextInt(10);
@@ -114,8 +114,7 @@ public class OmniPlatBuilder {
     }
     
     private void obstacleBlock() {
-        System.out.println("yeet");
-        floorHeight = randFloor.nextInt(3) + 1;
+        floorHeight = randFloor.nextInt(4) - 2;
         floorLength = randFloor.nextInt(6) + 4;
         tempBlock = new Block(floorLength, 1, Assets.getSprite("brick"));
         tempBlock.setX(previousX - 64);
