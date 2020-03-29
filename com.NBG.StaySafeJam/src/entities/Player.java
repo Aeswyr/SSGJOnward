@@ -126,8 +126,6 @@ public class Player extends Entity {
 				activeSprite = Assets.getSprite("airr");
 			else
 				activeSprite = Assets.getSprite("airl");
-		} else {
-			if (vector.Vy() < 1) vector.setVelocityY(0);
 		}
 		
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SPACE)) && vector.grounded()) {

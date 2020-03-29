@@ -20,7 +20,7 @@ public class Grapple extends Entity {
 
 	public Grapple(Entity e) {
 		this.hitbox = new Hitbox(0, 0, new int[][] { { 0, 0 }, { 4, 0 }, { 4, 4 }, { 0, 4 } }, this);
-		hitbox.setCollisionType(Hitbox.COLLISION_NONE);
+		hitbox.setCollisionType(Hitbox.COLLISION_ENTITY);
 		this.vector = new Vector(this, 0);
 
 		source = e;
@@ -48,36 +48,35 @@ public class Grapple extends Entity {
 			vector.setVelocityX(xspe);
 			vector.setVelocityY(yspe);
 
-			List<Entity> loc = hitbox.localCollisions();
-			for (Entity e : loc) {
-				if (e != this && e != source) {
-					if (e.hasHitbox() && e instanceof Platform || e instanceof Block) {
-						vector = null;
+			Entity e = vector.collision();
 
-						grappled = true;
-						enviro = true;
+			if (e != null) {
+				if (e instanceof Platform || e instanceof Block) {
+					vector = null;
 
-					} else if (e.isMob()) {
-						vector = null;
+					grappled = true;
+					enviro = true;
 
-						grappled = true;
-						entity = true;
+				} else if (e.isMob()) {
+					vector = null;
 
-						attach = e;
+					grappled = true;
+					entity = true;
 
-						double dx = source.getX() - attach.getX();
-						double dy = source.getY() - attach.getY();
-						double dist = Math.sqrt(dx * dx + dy * dy);
-						double cos = dx / dist;
-						double sin = dy / dist;
+					attach = e;
 
-						attach.getVector().setVelocityX(8 * cos);
-						attach.getVector().setVelocityY(8 * sin);
+					double dx = source.getX() - attach.getX();
+					double dy = source.getY() - attach.getY();
+					double dist = Math.sqrt(dx * dx + dy * dy);
+					double cos = dx / dist;
+					double sin = dy / dist;
 
-						if (source.getVector().Vy() != 0) {
-							source.getVector().setVelocityX(-3 * cos);
-							source.getVector().setVelocityY(-3 * sin);
-						}
+					attach.getVector().setVelocityX(8 * cos);
+					attach.getVector().setVelocityY(8 * sin);
+
+					if (!source.getVector().grounded()) {
+						source.getVector().setVelocityX(-3 * cos);
+						source.getVector().setVelocityY(-3 * sin);
 					}
 				}
 			}
@@ -91,7 +90,7 @@ public class Grapple extends Entity {
 			if (dist > snapDist * snapDist) {
 				dist = Math.sqrt(dist);
 				Vector ve = source.getVector();
-				double k = 0.25;
+				double k = 0.35;
 				double ax = k * Math.abs(dist - snapDist) * x0 / dist;
 				double ay = k * Math.abs(dist - snapDist) * y0 / dist;
 				ve.adjAccelX(ax);
