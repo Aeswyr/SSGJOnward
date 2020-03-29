@@ -1,6 +1,7 @@
 package entities;
 
 import entity.Entity;
+import entity.Hitbox;
 import gfx.DrawGraphics;
 import gfx.Sprite;
 import runtime.Handler;
@@ -18,6 +19,10 @@ public class Block extends Entity {
 		this.width = width;
 		this.height = height;
 		this.tile = tile;
+		
+		this.hitbox = new Hitbox(0, 0, new int[][] {{0, 0}, {0, 16 * height}, {16 * width, 16 * height}, {16 * width, 0}}, this);
+		hitbox.setCollisionType(Hitbox.COLLISION_ENVIRONMENT);
+		
 	}
 
 	@Override

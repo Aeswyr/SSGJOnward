@@ -1,7 +1,7 @@
 package scenes;
 
 import java.awt.event.KeyEvent;
-
+import Levels.OmniPlatBuilder;
 import Levels.PlatBuilder;
 import core.Core;
 import core.Support;
@@ -16,6 +16,7 @@ public class Game extends Scene {
 
 	Player p = new Player();
 	PlatBuilder platforms;
+	OmniPlatBuilder omniPlatforms;
 
 	int scroll;
 
@@ -24,6 +25,7 @@ public class Game extends Scene {
 		p = new Player();
 		p.setX(32);
 		platforms = new PlatBuilder();
+		omniPlatforms = new OmniPlatBuilder();
 		start();
 		scroll = 0;
 		scrolling = false;
@@ -46,6 +48,7 @@ public class Game extends Scene {
 		else if (Controller.getKeyPressed((char) KeyEvent.VK_SPACE))
 			scrolling = true;
 		platforms.floorMaker();
+		omniPlatforms.omniFloorBuilder();
 	}
 
 	@Override

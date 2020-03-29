@@ -14,6 +14,7 @@ public class PlatBuilder {
     int floorType;
     int previousX;
     int chunkLength;
+    int gapSize;
     
     public PlatBuilder() {
         previousX = 0;
@@ -28,50 +29,33 @@ public class PlatBuilder {
         }
     }
     
-    public void chunkBuilder() {
+    private void chunkBuilder() {
         chunkLength = 0;
         
         for(int i = 0; i < 15; i++) {
             
             floorLength = randFloor.nextInt(6) + 4;
-            floorType = randFloor.nextInt(4);
+            floorType = randFloor.nextInt(10);
             
-            if(floorType == 3) {
-                createDoublePlat();
+            if(floorType <= 3) {
+                gapSize = 0;
             } else {
-                createSinglePlat();
+                gapSize = randFloor.nextInt(96) + 16;
             }
+            
+            createSinglePlat();
         }
     }
     
-    public void createSinglePlat() {
+    private void createSinglePlat() {
         tempPlat = new Platform(floorLength, Assets.getSprite("brick"));
         tempPlat.setX(previousX);
         tempPlat.setY(64);
         
         Handler.getEntityManager().addEntity(tempPlat);
         
-        previousX += 50 + floorLength * 16;
-        chunkLength += 50 + floorLength * 16;
+        previousX += gapSize + floorLength * 16;
+        chunkLength += gapSize + floorLength * 16;
     }
     
-    public void createDoublePlat() {
-        tempPlat = new Platform(floorLength, Assets.getSprite("brick"));
-        tempPlat.setX(previousX);
-        tempPlat.setY(64);
-        
-        Handler.getEntityManager().addEntity(tempPlat);
-        
-        previousX += floorLength * 16;
-        chunkLength += floorLength * 16;
-        
-        tempPlat = new Platform(floorLength, Assets.getSprite("brick"));
-        tempPlat.setX(previousX);
-        tempPlat.setY(64);
-        
-        Handler.getEntityManager().addEntity(tempPlat);
-        
-        previousX += 50 + floorLength * 16;
-        chunkLength += 50 + floorLength * 16;
-    }
 }
