@@ -32,7 +32,7 @@ public class PlatBuilder {
     private void chunkBuilder() {
         chunkLength = 0;
         
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 10; i++) {
             
             floorLength = randFloor.nextInt(6) + 4;
             floorType = randFloor.nextInt(10);
