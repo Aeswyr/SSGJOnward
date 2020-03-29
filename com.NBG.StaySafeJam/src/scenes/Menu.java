@@ -13,25 +13,31 @@ import gui.UIObject;
 import runtime.Handler;
 import runtime.Scene;
 
-public class Menu extends Scene{
+public class Menu extends Scene {
 
 	NineSlice wood;
 	NineSlice paper;
 	NineSlice ink;
-	
-	UICollection main = new UICollection();
-	UICollection host = new UICollection();
-	UICollection lobby = new UICollection();
-	UICollection join = new UICollection();
-	
-	
+
+	UICollection main;
+	UICollection host;
+	UICollection lobby;
+	UICollection join;
+
 	@Override
 	public void init(String arg0) {
+
+		main = new UICollection();
+		host = new UICollection();
+		lobby = new UICollection();
+		join = new UICollection();
+
 		wood = new NineSlice(Assets.getSprite("wood_ui"));
 		paper = new NineSlice(Assets.getSprite("paper_ui"));
 		ink = new NineSlice(Assets.getSprite("ink_ui"));
-		
-		main.add(new Frame(0, 0, Handler.getWidth() - 8, Handler.getHeight() - 24, wood, Sprite.createLightData(20, 0)));
+
+		main.add(
+				new Frame(0, 0, Handler.getWidth() - 8, Handler.getHeight() - 24, wood, Sprite.createLightData(20, 0)));
 		main.add(new Button("Host New Game", new ClickListener() {
 
 			@Override
@@ -39,9 +45,9 @@ public class Menu extends Scene{
 				// TODO Auto-generated method stub
 				Handler.startScene(Init.game);
 			}
-			
-		}, 512, 256, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
-		
+
+		}, 128, 128, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
+
 		main.add(new Button("Join Game", new ClickListener() {
 
 			@Override
@@ -49,16 +55,16 @@ public class Menu extends Scene{
 				// TODO Auto-generated method stub
 				Handler.startScene(Init.game);
 			}
-			
-		}, 256, 256, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
-		
+
+		}, 64, 64, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
+
 		start();
 	}
 
 	@Override
 	public void render(DrawGraphics arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

@@ -16,15 +16,15 @@ import utility.Utility;
 public class Player extends Entity {
 
 	Sprite activeSprite;
-	
-	int gTime = 180;
+
+	int gTime = 30;
 	boolean grapple = false;
 	double progress;
 	Grapple grap;
 
 	public Player() {
 		activeSprite = Assets.getSprite("idle");
-
+		this.enableMob();
 		this.hitbox = new Hitbox(4, 4, new int[][] { { 0, 0 }, { 16, 0 }, { 16, 18 }, { 0, 18 } }, this);
 		this.hitbox.setCollisionType(Hitbox.COLLISION_ENTITY);
 		this.vector = new Vector(this, 0);
@@ -44,23 +44,28 @@ public class Player extends Entity {
 	public void update() {
 		controls();
 		grapple();
-		
-		if (this.y > 640) Handler.startScene(Init.menu);
-		
-		if (grapple) gTime--;
-		
+
+		if (this.y > 640)
+			Handler.startScene(Init.menu);
+
+		if (grapple)
+			gTime--;
+
 		if (gTime <= 0) {
-			grapple = false;
-			gTime = 180;
-			Handler.getEntityManager().removeEntity(grap);
-			grap = null;
+
+			if (!(grap.grappled && grap.enviro && Controller.getMousePressed(Controller.MOUSELEFT))) {
+				grapple = false;
+				gTime = 30;
+				Handler.getEntityManager().removeEntity(grap);
+				grap = null;
+			}
 		}
 	}
 
 	private void controls() {
 
 		boolean sh = false;
-		double sx = 1.5, sy = -4;
+		double sx = 1.5, sy = -6;
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SHIFT)))
 			sh = true;
 
@@ -85,12 +90,13 @@ public class Player extends Entity {
 					if (Math.abs(vector.Vx()) > 8 && Utility.getSign(vector.Vx()) == Utility.getSign(vector.Ax())) {
 						vector.setAccelX(0);
 					}
-				} else { 
+				} else {
 					vector.setVelocityX(sx);
 				}
 			}
 		} else {
-			if (vector.Vy() == 0) vector.setVelocityX(vector.Vx() / 1.25);
+			if (vector.Vy() == 0)
+				vector.setVelocityX(vector.Vx() / 1.25);
 		}
 
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SPACE)) && vector.Vy() == 0) {
@@ -101,7 +107,7 @@ public class Player extends Entity {
 		}
 
 	}
-	
+
 	private void grapple() {
 		if (!grapple) {
 			if (Controller.getMousePressed(Controller.MOUSELEFT)) {

@@ -14,6 +14,8 @@ public class Init {
 		Engine.start(1440, 720, "onward", "Onward!");
 		
 		Engine.getGraphics().setFont(Assets.getFont("script0"));
+		Engine.updateScale(3, 3);
+		
 		
 		menu = new Menu();
 		game = new Game();
