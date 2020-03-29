@@ -15,11 +15,13 @@ public class OmniPlatBuilder {
     int gapSize;
     int heightOffset;
     int previousX;
+    int previousX2;
     int chunkLength;
     Block tempBlock;
     
     public OmniPlatBuilder() {
         previousX = 0;
+        previousX2 = 0;
         
         omniChunkBuilder();
     }
@@ -51,6 +53,9 @@ public class OmniPlatBuilder {
                 lBlock();
             } else {
                 uBlock();
+            }
+            if(i == 2 * (i / 2)) {
+                obstacleBlock();
             }
         }
     }
@@ -108,4 +113,14 @@ public class OmniPlatBuilder {
         Handler.getEntityManager().addEntity(tempBlock);
     }
     
+    private void obstacleBlock() {
+        System.out.println("yeet");
+        floorHeight = randFloor.nextInt(3) + 1;
+        floorLength = randFloor.nextInt(6) + 4;
+        tempBlock = new Block(floorLength, 1, Assets.getSprite("brick"));
+        tempBlock.setX(previousX - 64);
+        tempBlock.setY(-floorHeight * 16);
+        
+        Handler.getEntityManager().addEntity(tempBlock);
+    }
 }
