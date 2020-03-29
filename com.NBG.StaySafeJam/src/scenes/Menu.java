@@ -1,7 +1,9 @@
 package scenes;
 
+import java.io.IOException;
 import core.Assets;
-import core.Init;
+import core.Core;
+import core.Support;
 import gfx.DrawGraphics;
 import gfx.Sprite;
 import gui.Button;
@@ -10,6 +12,7 @@ import gui.Frame;
 import gui.NineSlice;
 import gui.UICollection;
 import gui.UIObject;
+import networking.Server;
 import runtime.Handler;
 import runtime.Scene;
 
@@ -38,25 +41,41 @@ public class Menu extends Scene {
 
 		main.add(
 				new Frame(0, 0, Handler.getWidth() - 8, Handler.getHeight() - 24, wood, Sprite.createLightData(20, 0)));
+
+		main.add(new Button("Single Player", new ClickListener() {
+
+			@Override
+			public void onClick(UIObject source) {
+				Handler.startScene(Core.game);
+			}
+
+		}, 64, 48, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
+
 		main.add(new Button("Host New Game", new ClickListener() {
 
 			@Override
 			public void onClick(UIObject source) {
-				// TODO Auto-generated method stub
-				Handler.startScene(Init.game);
+				try {
+					Core.server = new Server();
+					networking.Processing.InitClient(Core.process);
+					Core.multiplayer = true;
+					Core.hosting = true;
+				} catch (IOException e) {
+
+				}
 			}
 
-		}, 128, 128, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
+		}, 64, 96, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
 
 		main.add(new Button("Join Game", new ClickListener() {
 
 			@Override
 			public void onClick(UIObject source) {
-				// TODO Auto-generated method stub
-				Handler.startScene(Init.game);
+				networking.Processing.InitClient(Core.process);
+				Core.multiplayer = true;
 			}
 
-		}, 64, 64, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
+		}, 64, 144, 128, 24, paper, paper, Sprite.createLightData(20, 0)));
 
 		start();
 	}
@@ -69,7 +88,8 @@ public class Menu extends Scene {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		if (Core.multiplayer)
+			Support.sortCommands();
 	}
 
 	@Override

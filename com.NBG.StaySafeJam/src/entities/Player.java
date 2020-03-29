@@ -3,7 +3,7 @@ package entities;
 import java.awt.event.KeyEvent;
 
 import core.Assets;
-import core.Init;
+import core.Core;
 import entity.Entity;
 import entity.Hitbox;
 import entity.Vector;
@@ -22,6 +22,8 @@ public class Player extends Entity {
 	double progress;
 	Grapple grap;
 
+	int tick = 0;
+	
 	public Player() {
 		activeSprite = Assets.getSprite("idle");
 		this.enableMob();
@@ -42,11 +44,15 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
+		
+		tick++;
+		if (Core.multiplayer && tick % 6 == 0)
+			;
 		controls();
 		grapple();
 
 		if (this.y > 640)
-			Handler.startScene(Init.menu);
+			Handler.startScene(Core.menu);
 
 		if (grapple)
 			gTime--;

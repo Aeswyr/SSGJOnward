@@ -3,6 +3,8 @@ package scenes;
 import java.awt.event.KeyEvent;
 
 import Levels.PlatBuilder;
+import core.Core;
+import core.Support;
 import entities.Player;
 import entity.Vector;
 import gfx.DrawGraphics;
@@ -37,7 +39,8 @@ public class Game extends Scene {
 
 	@Override
 	public void update() {
-
+		if (Core.multiplayer)
+			Support.sortCommands();
 		if (scrolling)
 			Handler.getCamera().center(scroll++, 92);
 		else if (Controller.getKeyPressed((char) KeyEvent.VK_SPACE))

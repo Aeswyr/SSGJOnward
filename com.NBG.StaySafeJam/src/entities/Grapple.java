@@ -1,15 +1,12 @@
 package entities;
 
 import java.util.List;
-
-import core.Assets;
 import entity.Entity;
 import entity.Hitbox;
 import entity.Vector;
 import gfx.DrawGraphics;
 import input.Controller;
 import runtime.Handler;
-import utility.Utility;
 
 public class Grapple extends Entity {
 
