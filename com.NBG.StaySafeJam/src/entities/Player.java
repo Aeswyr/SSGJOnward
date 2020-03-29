@@ -68,15 +68,23 @@ public class Player extends Entity {
 		}
 	}
 
+	//facing right is true, facing left is false
+	boolean dir = true;
+	
 	private void controls() {
 
+		activeSprite = Assets.getSprite("idle");
+		
 		boolean sh = false;
-		double sx = 1.5, sy = -6;
+		double sx = 1.5, sy = -4;
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SHIFT)))
 			sh = true;
 
 		if (Controller.getKeyPressed('a') || Controller.getKeyPressed('d')) {
 			if (Controller.getKeyPressed('a')) {
+				activeSprite = Assets.getSprite("runl");
+				dir = false;
+				
 				if (sh)
 					sx *= 2;
 
@@ -88,6 +96,9 @@ public class Player extends Entity {
 			}
 
 			if (Controller.getKeyPressed('d')) {
+				activeSprite = Assets.getSprite("runr");
+				dir = true;
+				
 				if (sh)
 					sx *= 2;
 
@@ -111,13 +122,17 @@ public class Player extends Entity {
 			}
 			vector.setVelocityY(sy);
 		}
+		
+		if (vector.Vy() != 0) {
+			if (dir) activeSprite = Assets.getSprite("airr");
+			else activeSprite = Assets.getSprite("airl");
+		}
 
 	}
 
 	private void grapple() {
 		if (!grapple) {
 			if (Controller.getMousePressed(Controller.MOUSELEFT)) {
-				System.out.println("mans went and did it");
 				grap = new Grapple(this);
 				grapple = true;
 				grap.setX((int) x);

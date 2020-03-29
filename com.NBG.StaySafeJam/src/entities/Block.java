@@ -20,7 +20,7 @@ public class Block extends Entity {
 		this.height = height;
 		this.tile = tile;
 		
-		this.hitbox = new Hitbox(0, 0, new int[][] {{0, 0}, {0, 16 * height}, {16 * width, 16 * height}, {16 * width, 0}}, this);
+		this.hitbox = new Hitbox(0, 0, new int[][] {{0, 0}, {16 * width, 0}, {16 * width, 16 * height}, {0, 16 * height}}, this);
 		hitbox.setCollisionType(Hitbox.COLLISION_ENVIRONMENT);
 		
 	}

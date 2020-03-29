@@ -53,14 +53,12 @@ public class Grapple extends Entity {
 				if (e != this && e != source) {
 					if (e.hasHitbox() && e instanceof Platform || e instanceof Block) {
 						vector = null;
-						System.out.println("enviro col");
 
 						grappled = true;
 						enviro = true;
 
 					} else if (e.isMob()) {
 						vector = null;
-						System.out.println("entity col");
 
 						grappled = true;
 						entity = true;
@@ -86,14 +84,14 @@ public class Grapple extends Entity {
 		}
 
 		if (enviro) {
-			int snapDist = 128;
+			int snapDist = 96;
 			int x0 = (int) x - source.getX();
 			int y0 = (int) y - source.getY();
 			double dist = x0 * x0 + y0 * y0;
 			if (dist > snapDist * snapDist) {
 				dist = Math.sqrt(dist);
 				Vector ve = source.getVector();
-				double k = 0.5;
+				double k = 0.25;
 				double ax = k * Math.abs(dist - snapDist) * x0 / dist;
 				double ay = k * Math.abs(dist - snapDist) * y0 / dist;
 				ve.adjAccelX(ax);

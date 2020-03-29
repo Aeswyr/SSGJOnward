@@ -43,12 +43,9 @@ public class Game extends Scene {
 
 	@Override
 	public void update() {
-	    System.out.println(p.getY());
 		if (Core.multiplayer)
 			Support.sortCommands();
 		if(p.getY() < 0) {
-		    System.out.println(p.getY());
-		    //cameraHeight = p.getY() + 25;
 		    if(cameraHeight > p.getY() + 120) {
 		        cameraHeight -= 4;
 		    }
