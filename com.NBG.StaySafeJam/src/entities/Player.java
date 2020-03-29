@@ -23,7 +23,7 @@ public class Player extends Entity {
 	Grapple grap;
 
 	int tick = 0;
-	
+
 	public Player() {
 		activeSprite = Assets.getSprite("idle");
 		this.enableMob();
@@ -44,7 +44,7 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-		
+
 		tick++;
 		if (Core.multiplayer && tick % 6 == 0)
 			;
@@ -68,13 +68,13 @@ public class Player extends Entity {
 		}
 	}
 
-	//facing right is true, facing left is false
+	// facing right is true, facing left is false
 	boolean dir = true;
-	
+
 	private void controls() {
 
 		activeSprite = Assets.getSprite("idle");
-		
+
 		boolean sh = false;
 		double sx = 1.5, sy = -4;
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SHIFT)))
@@ -84,12 +84,15 @@ public class Player extends Entity {
 			if (Controller.getKeyPressed('a')) {
 				activeSprite = Assets.getSprite("runl");
 				dir = false;
-				
+
 				if (sh)
 					sx *= 2;
 
-				if (vector.Vy() != 0) {
+				if (!vector.grounded()) {
 					vector.adjAccelX(-sx / 4.0);
+					if (Math.abs(vector.Vx()) > 8 && Utility.getSign(vector.Vx()) == Utility.getSign(vector.Ax())) {
+						vector.setAccelX(0);
+					}
 				} else {
 					vector.setVelocityX(-sx);
 				}
@@ -98,11 +101,10 @@ public class Player extends Entity {
 			if (Controller.getKeyPressed('d')) {
 				activeSprite = Assets.getSprite("runr");
 				dir = true;
-				
+
 				if (sh)
 					sx *= 2;
-
-				if (vector.Vy() != 0) {
+				if (!vector.grounded()) {
 					vector.adjAccelX(sx / 4.0);
 					if (Math.abs(vector.Vx()) > 8 && Utility.getSign(vector.Vx()) == Utility.getSign(vector.Ax())) {
 						vector.setAccelX(0);
@@ -112,21 +114,29 @@ public class Player extends Entity {
 				}
 			}
 		} else {
-			if (vector.Vy() == 0)
+			if (vector.grounded()) {
 				vector.setVelocityX(vector.Vx() / 1.25);
+				if (vector.Vx() < 1) vector.setVelocityX(0);
+			}
 		}
 
-		if (Controller.getKeyPressed((char) (KeyEvent.VK_SPACE)) && vector.Vy() == 0) {
+
+		if (!vector.grounded()) {
+			if (dir)
+				activeSprite = Assets.getSprite("airr");
+			else
+				activeSprite = Assets.getSprite("airl");
+		} else {
+			if (vector.Vy() < 1) vector.setVelocityY(0);
+		}
+		
+		if (Controller.getKeyPressed((char) (KeyEvent.VK_SPACE)) && vector.grounded()) {
 			if (sh) {
 				sy = (int) (sy / 1.25);
 			}
 			vector.setVelocityY(sy);
 		}
-		
-		if (vector.Vy() != 0) {
-			if (dir) activeSprite = Assets.getSprite("airr");
-			else activeSprite = Assets.getSprite("airl");
-		}
+
 
 	}
 
@@ -139,7 +149,13 @@ public class Player extends Entity {
 				grap.setY((int) y);
 				Handler.getEntityManager().addEntity(grap);
 			}
+		} else if (Controller.getMousePressed(Controller.MOUSELEFT)) {
+			if (dir)
+				activeSprite = Assets.getSprite("airr");
+			else
+				activeSprite = Assets.getSprite("airl");
 		}
+
 	}
 
 }

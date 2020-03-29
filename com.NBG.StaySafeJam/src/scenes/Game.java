@@ -65,13 +65,13 @@ public class Game extends Scene {
 	@Override
 	public void start() {
 		Handler.getEntityManager().addEntity(p);
-		Vector.setGlobalGravity(-9.8);
+		Vector.setGlobalGravity(-10);
 		Handler.getCamera().center(scroll, 92);
 	}
 
 	@Override
 	public void stop() {
-		Handler.getEntityManager().removeEntity(p);
+		Handler.getEntityManager().flushEntities();
 
 	}
 
