@@ -27,7 +27,7 @@ public class Player extends Entity {
 	public Player() {
 		activeSprite = Assets.getSprite("idle");
 		this.enableMob();
-		this.hitbox = new Hitbox(4, 4, new int[][] { { 0, 0 }, { 16, 0 }, { 16, 18 }, { 0, 18 } }, this);
+		this.hitbox = new Hitbox(6, 6, new int[][] { { 0, 0 }, { 12, 0 }, { 12, 12 }, { 0, 12 } }, this);
 		this.hitbox.setCollisionType(Hitbox.COLLISION_ENTITY);
 		this.vector = new Vector(this, 0);
 	}
@@ -76,7 +76,7 @@ public class Player extends Entity {
 		activeSprite = Assets.getSprite("idle");
 
 		boolean sh = false;
-		double sx = 1.5, sy = -4;
+		double sx = 1.5, sy = -5;
 		if (Controller.getKeyPressed((char) (KeyEvent.VK_SHIFT)))
 			sh = true;
 
