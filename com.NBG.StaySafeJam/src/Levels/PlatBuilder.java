@@ -23,6 +23,7 @@ public class PlatBuilder {
     
     public void floorMaker() {
         if((Handler.getCamera().xOffset() == (previousX - (chunkLength / 2)))) {
+            System.out.println("chunks: " + chunkLength + " x value: " + previousX);
             chunkBuilder();
         }
     }
@@ -30,7 +31,7 @@ public class PlatBuilder {
     public void chunkBuilder() {
         chunkLength = 0;
         
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < 15; i++) {
             
             floorLength = randFloor.nextInt(6) + 4;
             floorType = randFloor.nextInt(4);

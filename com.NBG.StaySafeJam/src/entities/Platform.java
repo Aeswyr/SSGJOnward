@@ -30,7 +30,6 @@ public class Platform extends Entity {
 			tile.render((int) (x + 16 * i - Handler.getCamera().xOffset()), (int) (y - Handler.getCamera().yOffset()),
 					g);
 		}
-
 	}
 
 	@Override

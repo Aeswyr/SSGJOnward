@@ -28,7 +28,6 @@ public class Player extends Entity {
 		this.hitbox = new Hitbox(4, 4, new int[][] { { 0, 0 }, { 16, 0 }, { 16, 18 }, { 0, 18 } }, this);
 		this.hitbox.setCollisionType(Hitbox.COLLISION_ENTITY);
 		this.vector = new Vector(this, 0);
-
 	}
 
 	/**
